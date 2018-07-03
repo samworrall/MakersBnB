@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "description": "Headline specifications: ------------------------",
   "main": "app.js",
+  "nyc": {
+    "exclude": [
+      "**/*Spec.js",
+      "**/server"
+    ]
+  },
   "scripts": {
     "easy_setup": "sequelize db:drop || true && sequelize db:drop --env test || true && sequelize db:create && sequelize db:migrate && sequelize db:seed:all && sequelize db:create --env test && sequelize db:migrate --env test",
     "setup_db_drop": "sequelize db:drop",
@@ -14,6 +20,8 @@
     "db_seed_undo_all_test": "sequelize db:seed:undo:all --env test",
     "test_server": "export PORT=8000 && export NODE_ENV='test' && nodemon server/controllers/app.js",
     "dev_server": "export PORT=3000 && export NODE_ENV='development' && nodemon server/controllers/app.js",
+    "test": "jasmine",
+    "test_cov": "nyc jasmine"
     "unit_test": "./node_modules/.bin/jasmine --config=jasmine.json",
     "feature_test": "./node_modules/.bin/cypress run"
   },
@@ -29,6 +37,7 @@
   },
   "homepage": "https://github.com/samworrall/MakersBnB#readme",
   "devDependencies": {
+    "nyc": "^11.8.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-cypress": "^2.0.1",
